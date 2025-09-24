@@ -1,6 +1,6 @@
 # Chuck Jokes (CakePHP 5 + SQLite)
 
-Proyecto educativo para DAW: aplicación mínima en CakePHP 5 que obtiene un chiste aleatorio de la API pública de Chuck Norris y permite guardarlo en una base de datos SQLite.
+Aplicación mínima en CakePHP 5 que obtiene un chiste aleatorio de la API pública de Chuck Norris y permite guardarlo en una base de datos SQLite.
 
 ## Índice
 - Requisitos previos
