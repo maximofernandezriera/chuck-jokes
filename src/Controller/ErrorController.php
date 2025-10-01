@@ -19,52 +19,84 @@ namespace App\Controller;
 use Cake\Event\EventInterface;
 
 /**
- * Error Handling Controller
+ * Controlador de Manejo de Errores
  *
- * Controller used by ExceptionRenderer to render error responses.
+ * Este controlador especializado se encarga de manejar y renderizar las respuestas
+ * de error de la aplicación. Es utilizado automáticamente por el ExceptionRenderer
+ * de CakePHP cuando ocurren excepciones o errores durante la ejecución.
+ *
+ * Funcionalidades principales:
+ * - Renderizado de páginas de error personalizadas (404, 500, etc.)
+ * - Configuración específica para el manejo de errores
+ * - Evita la herencia completa de AppController para mayor seguridad
+ *
+ * @see \Cake\Error\ExceptionRenderer
  */
 class ErrorController extends AppController
 {
     /**
-     * Initialization hook method.
+     * Método de inicialización del controlador de errores.
+     *
+     * Intencionalmente NO llama a parent::initialize() para evitar cargar
+     * componentes o configuraciones que podrían causar errores adicionales
+     * durante el manejo de errores. Esto garantiza un entorno limpio y seguro
+     * para el renderizado de páginas de error.
      *
      * @return void
      */
     public function initialize(): void
     {
-        // Only add parent::initialize() if you are confident your `AppController` is safe.
+        // Intencionalmente vacío - no se llama a parent::initialize()
+        // para evitar posibles errores en cascada durante el manejo de errores
     }
 
     /**
-     * beforeFilter callback.
+     * Callback ejecutado antes de filtrar la petición.
      *
-     * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
+     * Se ejecuta antes de que se procese la acción del controlador.
+     * Actualmente vacío, pero disponible para configuraciones específicas
+     * de manejo de errores si fuera necesario.
+     *
+     * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Evento de CakePHP
      * @return void
      */
     public function beforeFilter(EventInterface $event): void
     {
+        // Método vacío - disponible para configuraciones específicas de errores
     }
 
     /**
-     * beforeRender callback.
+     * Callback ejecutado antes de renderizar la vista.
      *
-     * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
+     * Configura el path de las plantillas para que apunten al directorio 'Error',
+     * donde se encuentran las vistas personalizadas para diferentes tipos de error
+     * (error400.php, error500.php, etc.).
+     *
+     * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Evento de CakePHP
      * @return void
      */
     public function beforeRender(EventInterface $event): void
     {
+        // Llama al método padre para mantener el comportamiento base
         parent::beforeRender($event);
 
+        // Configura el directorio de plantillas para usar las vistas de error
+        // Las plantillas se buscarán en templates/Error/
         $this->viewBuilder()->setTemplatePath('Error');
     }
 
     /**
-     * afterFilter callback.
+     * Callback ejecutado después de filtrar la respuesta.
      *
-     * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
+     * Se ejecuta después de que se haya procesado la acción y renderizado la vista.
+     * Actualmente vacío, pero disponible para limpieza o logging específico
+     * de errores si fuera necesario.
+     *
+     * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Evento de CakePHP
      * @return void
      */
     public function afterFilter(EventInterface $event): void
     {
+        // Método vacío - disponible para limpieza post-renderizado de errores
     }
 }

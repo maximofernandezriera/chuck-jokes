@@ -19,33 +19,47 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 
 /**
- * Application Controller
+ * Controlador Base de la Aplicación
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
+ * Este controlador sirve como clase base para todos los controladores de la aplicación.
+ * Contiene la configuración común y los métodos que serán heredados por todos los
+ * controladores específicos (JokesController, PagesController, etc.).
+ *
+ * Funcionalidades principales:
+ * - Configuración inicial común para todos los controladores
+ * - Carga de componentes compartidos (Flash para mensajes)
+ * - Punto central para configuraciones de seguridad y autenticación
  *
  * @link https://book.cakephp.org/5/en/controllers.html#the-app-controller
  */
 class AppController extends Controller
 {
     /**
-     * Initialization hook method.
+     * Método de inicialización del controlador.
      *
-     * Use this method to add common initialization code like loading components.
+     * Se ejecuta automáticamente cuando se instancia cualquier controlador que herede
+     * de AppController. Aquí se configuran los componentes y configuraciones comunes
+     * que necesitan todos los controladores de la aplicación.
      *
-     * e.g. `$this->loadComponent('FormProtection');`
+     * Componentes cargados:
+     * - Flash: Para mostrar mensajes de éxito, error e información al usuario
      *
      * @return void
      */
     public function initialize(): void
     {
+        // Llama al método initialize del controlador padre (Controller)
         parent::initialize();
 
+        // Carga el componente Flash para mostrar mensajes al usuario
+        // Permite mostrar notificaciones de éxito, error, advertencia, etc.
         $this->loadComponent('Flash');
 
         /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/5/en/controllers/components/form-protection.html
+         * Componente de protección de formularios (comentado por defecto)
+         * Proporciona protección CSRF y otras medidas de seguridad para formularios
+         * Descomenta la siguiente línea para habilitar la protección recomendada
+         * @see https://book.cakephp.org/5/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
     }
